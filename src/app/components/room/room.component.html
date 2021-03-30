@@ -1,0 +1,20 @@
+<h2>room</h2>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Room 01</mat-card-title>
+    <mat-card-subtitle>Doctor</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p *ngIf="this.queueService.getCurrent() !== 0">
+      Current: {{this.queueService.getCurrent()}} in the room
+    </p>
+    <p *ngIf="this.queueService.getCurrent() === 0">
+      Current: Please wait the doctor to call you
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" [disabled]="this.queueService.getQueueSize() || this.queueService.checkRoom()" (click)='queueService.onAccept()'>Accept</button>
+    <button mat-raised-button color="warn" [disabled]="this.queueService.getQueueSize() || this.queueService.checkRoom()" (click)='this.queueService.onSkip()'>Skip</button>
+    <button mat-raised-button color="accent" [disabled]="!this.queueService.checkRoom()" (click)='this.queueService.onOut()'>Out</button>
+  </mat-card-actions>
+</mat-card>
